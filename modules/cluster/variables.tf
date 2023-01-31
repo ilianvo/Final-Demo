@@ -32,3 +32,7 @@ locals {
 variable "image_tag" {
   type = string
 }
+
+locals {
+  image = format("%s:%s", var.ecr_name, var.image_tag)
+}

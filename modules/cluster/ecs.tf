@@ -22,7 +22,7 @@ resource "aws_cloudwatch_log_group" "log-group" {
   [
     {
       "name": "${var.Demo-type}-${var.environment}-container",
-      "image": "${var.ecr_name}:${var.image_tag}",
+      "image": "${local.image}",
       "entryPoint": [],
       "environment": [],
       "essential": true,
