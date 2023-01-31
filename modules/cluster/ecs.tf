@@ -22,7 +22,7 @@ resource "aws_cloudwatch_log_group" "log-group" {
   [
     {
       "name": "${var.Demo-type}-${var.environment}-container",
-      "image": "${var.ecr_name}:latest",
+      "image": "${var.ecr_name}:${var.image_tag}",
       "entryPoint": [],
       "environment": [],
       "essential": true,
@@ -69,7 +69,7 @@ resource "aws_ecs_service" "aws-ecs-service" {
   cluster              = aws_ecs_cluster.aws-ecs-cluster.id
   task_definition      = aws_ecs_task_definition.aws-ecs-task.arn
   launch_type          = "FARGATE"
-  desired_count        = 2
+  desired_count        = 1
   force_new_deployment = true
 
   network_configuration {

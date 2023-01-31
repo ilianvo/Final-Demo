@@ -28,3 +28,7 @@ locals {
   allowed_ports = [80, 443,8888,5000]
 }
 
+
+variable "image_tag" {
+  type = string
+}

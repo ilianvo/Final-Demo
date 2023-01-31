@@ -1,4 +1,4 @@
-terraform {
+/*terraform {
   required_providers {
    docker = {
       source  = "kreuzwerker/docker"
@@ -29,4 +29,19 @@ resource "null_resource" "push_image" {
     image_id = "${var.ecr_name}:latest"
   }
   depends_on = [docker_image.example]
+}*/
+data "aws_caller_identity" "current" {}
+
+resource "null_resource" "build" {
+  provisioner "local-exec" {
+    command     = "make build"
+    working_dir = var.working_dir
+    environment = {
+        TAG               = var.image_tag
+        REGISTRY_ID       = data.aws_caller_identity.current.account_id
+        REPOSITORY_REGION = "eu-west-3"
+        APP_NAME          = var.app
+        ENV_NAME          = var.env
+    }
+  }
 }

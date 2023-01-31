@@ -9,3 +9,8 @@ region = "eu-west-3"
 environment = "Test"
 
 Demo-type = "Demo-Cluster"
+
+env            = "main"
+app            = "app"
+
+image_tag      = "0.0.1"

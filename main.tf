@@ -27,7 +27,14 @@ module "ecr" {
 module "init-build" {
   source = "./modules/init-build"
   ecr_name = module.ecr.ecr_name
-}
+  env                 = var.env
+  app                 = var.app
+  working_dir         = "${path.root}/app"
+  image_tag           = var.image_tag
+  depends_on = [
+    module.ecr,
+  ]
+  }
 
 module "cluster" {
   source = "./modules/cluster"
@@ -38,6 +45,7 @@ module "cluster" {
   public_subnet_cidr = var.public_subnet_cidr
   cidr = var.cidr
   ecr_name = module.ecr.ecr_name
+  image_tag   = var.image_tag
   depends_on = [
     module.ecr, module.init-build
   ]
