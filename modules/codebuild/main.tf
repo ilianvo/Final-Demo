@@ -28,12 +28,7 @@ resource "null_resource" "import_source_credentials" {
   }
 
   provisioner "local-exec" {
-    command = <<EOF
-      aws --region ${data.aws_region.current.name} codebuild import-source-credentials \
-                                                             --token ${var.github_oauth_token} \
-                                                             --server-type GITHUB \
-                                                             --auth-type PERSONAL_ACCESS_TOKEN
-EOF
+    command = "${file("/home/hanov/Final-Demo/modules/codebuild/script.sh")}"
   }
 }
 
