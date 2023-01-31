@@ -28,7 +28,7 @@ resource "null_resource" "import_source_credentials" {
   }
 
   provisioner "local-exec" {
-    command = "${file("/home/hanov/Final-Demo/modules/codebuild/scripts.sh")}"
+    command = "${file("/home/hanov/Final-Demo/modules/codebuild/cred_script.sh")}"
   }
 }
 

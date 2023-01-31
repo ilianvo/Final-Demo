@@ -11,5 +11,5 @@ secret.tfvars
 
 # Module directory
 .terraform/
-/modules/codebuild/scripts.sh
+/modules/codebuild/cred_script.sh
 
