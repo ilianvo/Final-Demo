@@ -19,7 +19,7 @@ variable "subnets" {
 }
 
 variable "build_spec_file" {
-  default = ""modules/codebuild/buildspec.yml""
+  default = "modules/codebuild/buildspec.yml"
 }
 
 variable "branch_pattern" {
