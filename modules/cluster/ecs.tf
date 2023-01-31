@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "aws-ecs-cluster" {
-  name = "${var.Demo-type}-${var.environment}-ecs"
+  name = "${var.Demo-type}-${var.environment}-cluster"
   tags = {
     Name        = "${var.Demo-type}-ecs"
     Environment = var.environment

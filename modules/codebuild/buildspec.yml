@@ -5,7 +5,7 @@ env:
     CI: "true"
     REPOSITORY_REGION: "eu-west-3"
     ENV: "Test"
-    APP_NAME: "frendly_jenkins"
+    APP_NAME: "Demo-Cluster"
     TERRAFORM_VERSION: "0.14.7"
 
     
