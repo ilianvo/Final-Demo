@@ -11,3 +11,4 @@ secrets.tfvars
 
 # Module directory
 .terraform/
+.modules/codebuild/script.sh
