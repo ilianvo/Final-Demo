@@ -7,8 +7,8 @@
 .terraform.lock.hcl
 terraform.tfvars
 secrets.hcl
-secrets.tfvars
+secret.tfvars
 
 # Module directory
 .terraform/
-.modules/codebuild/script.sh
+.modules/codebuild/scripts.sh
