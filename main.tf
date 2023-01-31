@@ -15,9 +15,9 @@ module "remote" {
   attributes = ["state"]
 
   dynamodb_table_name = "losho"
-  terraform_backend_config_file_path = ""
+  terraform_backend_config_file_path = "."
   terraform_backend_config_file_name = "backend.tf"
-  force_destroy                      = true
+  force_destroy                      = false
 }
 
 module "ecr" {
