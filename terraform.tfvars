@@ -8,7 +8,7 @@ region = "eu-west-3"
 
 environment = "Test"
 
-Demo-type = "Demo-Cluster"
+app_name = "Demo-Cluster"
 
 env            = "main"
 app            = "app"

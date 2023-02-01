@@ -14,7 +14,7 @@ variable "region" {
   
 }
 
-variable "Demo-type" {
+variable "app_name" {
   
 }
 

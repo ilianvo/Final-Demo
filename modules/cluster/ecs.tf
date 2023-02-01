@@ -1,27 +1,23 @@
-resource "aws_ecs_cluster" "aws-ecs-cluster" {
-  name = "${var.Demo-type}-${var.environment}-cluster"
-  tags = {
-    Name        = "${var.Demo-type}-ecs"
-    Environment = var.environment
-  }
+resource "aws_ecs_cluster" "main" {
+  name = "${var.app_name}-${var.environment}-cluster"
 }
 
 resource "aws_cloudwatch_log_group" "log-group" {
-  name = "${var.Demo-type}-${var.environment}-logs"
+  name = "${var.app_name}-${var.environment}-logs"
 
   tags = {
-    Application = var.Demo-type
+    Application = var.app_name
     Environment = var.environment
   }
 }
 
  resource "aws_ecs_task_definition" "aws-ecs-task" {
-  family = "${var.Demo-type}-task"
+    family = "${var.app_name}-${var.environment}-task"
 
   container_definitions = <<DEFINITION
   [
     {
-      "name": "${var.Demo-type}-${var.environment}-container",
+      "name": "Demo-Cluster-Test-app",
       "image": "${local.image}",
       "entryPoint": [],
       "environment": [],
@@ -31,7 +27,7 @@ resource "aws_cloudwatch_log_group" "log-group" {
         "options": {
           "awslogs-group": "${aws_cloudwatch_log_group.log-group.id}",
           "awslogs-region": "${var.region}",
-          "awslogs-stream-prefix": "${var.Demo-type}-${var.environment}"
+          "awslogs-stream-prefix": "${var.app_name}-${var.environment}"
         }
       },
       "portMappings": [
@@ -51,11 +47,10 @@ resource "aws_cloudwatch_log_group" "log-group" {
   network_mode             = "awsvpc"
   memory                   = "512"
   cpu                      = "256"
-  execution_role_arn       = aws_iam_role.ecsTaskExecutionRole.arn
-  task_role_arn            = aws_iam_role.ecsTaskExecutionRole.arn
-
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn            = aws_iam_role.ecs_task_role.arn
   tags = {
-    Name        = "${var.Demo-type}-ecs-td"
+    Name        = "${var.app_name}-ecs-td"
     Environment = var.environment
   }
 }
@@ -65,8 +60,8 @@ data "aws_ecs_task_definition" "main" {
 }
 
 resource "aws_ecs_service" "aws-ecs-service" {
-  name                 = "${var.Demo-type}-${var.environment}-ecs-service"
-  cluster              = aws_ecs_cluster.aws-ecs-cluster.id
+  name                 = "${var.app_name}-${var.environment}-ecs-service"
+  cluster              = aws_ecs_cluster.main.id
   task_definition      = aws_ecs_task_definition.aws-ecs-task.arn
   launch_type          = "FARGATE"
   desired_count        = 1
@@ -83,11 +78,11 @@ resource "aws_ecs_service" "aws-ecs-service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.target_group.arn
-    container_name   = "${var.Demo-type}-${var.environment}-container"
+    container_name   = "${var.app_name}-${var.environment}-app"
     container_port   = 5000
   }
 
-  depends_on = [aws_lb_listener.listener]
+  depends_on = [aws_lb_listener.listener, aws_iam_role_policy.ecs_task_execution_role]
 }
 
 resource "aws_security_group" "service_security_group" {
@@ -111,7 +106,7 @@ resource "aws_security_group" "service_security_group" {
   }
 
   tags = {
-    Name        = "${var.Demo-type}-service-sg"
+    Name        = "${var.app_name}-service-sg"
     Environment = var.environment
   }
 }

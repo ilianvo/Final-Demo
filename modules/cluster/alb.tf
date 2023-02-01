@@ -1,11 +1,11 @@
 
 resource "aws_alb" "application_load_balancer" {
-  name               = "${var.Demo-type}-${var.environment}-alb"
+  name               = "${var.app_name}-${var.environment}-alb"
   subnets            = aws_subnet.public.*.id
   security_groups    = [aws_security_group.load_balancer_security_group.id]
 
   tags = {
-    Name        = "${var.Demo-type}-alb"
+    Name        = "${var.app_name}-alb"
     Environment = var.environment
   }
 }
@@ -30,13 +30,13 @@ resource "aws_security_group" "load_balancer_security_group" {
     cidr_blocks      = ["0.0.0.0/0"]
   }
   tags = {
-    Name        = "${var.Demo-type}-sg"
+    Name        = "${var.app_name}-sg"
     Environment = var.environment
   }
 }
 
 resource "aws_lb_target_group" "target_group" {
-  name        = "${var.Demo-type}-${var.environment}-tg"
+  name        = "${var.app_name}-${var.environment}-tg"
   port        = 80
   protocol    = "HTTP"
   target_type = "ip"
@@ -53,7 +53,7 @@ resource "aws_lb_target_group" "target_group" {
   }
 
   tags = {
-    Name        = "${var.Demo-type}-lb-tg"
+    Name        = "${var.app_name}-lb-tg"
     Environment = var.environment
   }
 }

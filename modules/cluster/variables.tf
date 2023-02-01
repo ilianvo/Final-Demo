@@ -1,9 +1,9 @@
 variable "region" {
   
 }
-variable "Demo-type" {
-  type        = string
-  
+
+variable "app_name" {
+  type = string
 }
 
 variable "environment" {
@@ -35,4 +35,13 @@ variable "image_tag" {
 
 locals {
   image = format("%s:%s", var.ecr_name, var.image_tag)
+}
+
+variable "ecs_task_execution_role_name" {
+  description = "ECS task execution role name"
+  default = "TaskExecutionRole"
+}
+variable "ecs_task_role_name" {
+  description = "ECS task role name"
+  default = "TaskRole"
 }

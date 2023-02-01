@@ -39,7 +39,7 @@ module "init-build" {
 module "cluster" {
   source = "./modules/cluster"
   region = var.region
-  Demo-type = var.Demo-type
+  app_name = var.app_name
   environment = var.environment
   private_subnet_cidr = var.private_subnet_cidr
   public_subnet_cidr = var.public_subnet_cidr
