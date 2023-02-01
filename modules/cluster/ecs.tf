@@ -17,7 +17,7 @@ resource "aws_cloudwatch_log_group" "log-group" {
   container_definitions = <<DEFINITION
   [
     {
-      "name": "Demo-Cluster-Test-app",
+      "name": "${var.app_name}-${var.environment}-app",
       "image": "${local.image}",
       "entryPoint": [],
       "environment": [],
@@ -35,7 +35,7 @@ resource "aws_cloudwatch_log_group" "log-group" {
           "containerPort": 5000,
           "hostPort": 5000
         }
-      ],
+    ],
       "cpu": 256,
       "memory": 512,
       "networkMode": "awsvpc"
@@ -50,8 +50,8 @@ resource "aws_cloudwatch_log_group" "log-group" {
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   task_role_arn            = aws_iam_role.ecs_task_role.arn
   tags = {
-    Name        = "${var.app_name}-ecs-td"
-    Environment = var.environment
+    Name        = "VERSION"
+    Environment = var.image_tag
   }
 }
 
