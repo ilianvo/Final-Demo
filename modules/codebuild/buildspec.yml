@@ -27,15 +27,17 @@ phases:
     commands:
       - echo "Build and push docker images"
       - cd "${CODEBUILD_SRC_DIR}/app"
-      - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - export TAG="${CODEBUILD_RESOLVED_SOURCE_VERSION: -4}-${ENV}"
+      - echo "Building version ${TAG}"
+      #- IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       #- export TAG="${CODEBUILD_RESOLVED_SOURCE_VERSION}-${ENV}"
-      - export TAG="${IMAGE_TAG}-${ENV}"
+      #- export TAG="${IMAGE_TAG}-${ENV}"
       - echo "Building version ${TAG}"
       - make build
 
       - cd ${CODEBUILD_SRC_DIR}
       - terraform init 
-      - terraform plan -target=module.cluster --var-file="terraform.tfvars" -no-color -input=false -out plan.out
+      - terraform plan -target=module.cluster --var-file="terraform.tfvars" -var="image_tag=${TAG}" -no-color -input=false -out plan.out
       - terraform apply -auto-approve -no-color -input=false plan.out
 
   post_build:

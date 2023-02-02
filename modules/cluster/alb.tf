@@ -35,7 +35,7 @@ resource "aws_security_group" "load_balancer_security_group" {
   }
 }
 
-resource "aws_lb_target_group" "target_group" {
+resource "aws_alb_target_group" "target_group" {
   name        = "${var.app_name}-${var.environment}-tg"
   port        = 80
   protocol    = "HTTP"
@@ -58,14 +58,14 @@ resource "aws_lb_target_group" "target_group" {
   }
 }
 
-resource "aws_lb_listener" "listener" {
+resource "aws_alb_listener" "listener" {
   load_balancer_arn = aws_alb.application_load_balancer.id
   port              = "8888"
   protocol          = "HTTP"
 
    default_action {
     type             = "forward"
-     target_group_arn = aws_lb_target_group.target_group.id
+     target_group_arn = aws_alb_target_group.target_group.id
    }
 
 }

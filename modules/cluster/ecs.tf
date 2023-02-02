@@ -65,7 +65,6 @@ resource "aws_ecs_service" "aws-ecs-service" {
   task_definition      = aws_ecs_task_definition.aws-ecs-task.arn
   launch_type          = "FARGATE"
   desired_count        = 1
-  force_new_deployment = true
 
   network_configuration {
     subnets          = aws_subnet.private.*.id
@@ -77,12 +76,12 @@ resource "aws_ecs_service" "aws-ecs-service" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.target_group.arn
+    target_group_arn = aws_alb_target_group.target_group.arn
     container_name   = "${var.app_name}-${var.environment}-app"
     container_port   = 5000
   }
 
-  depends_on = [aws_lb_listener.listener, aws_iam_role_policy.ecs_task_execution_role]
+  depends_on = [aws_alb_listener.listener, aws_iam_role_policy.ecs_task_execution_role]
 }
 
 resource "aws_security_group" "service_security_group" {
