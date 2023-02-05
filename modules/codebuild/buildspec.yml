@@ -27,7 +27,7 @@ phases:
     commands:
       - echo "Build and push docker images"
       - cd "${CODEBUILD_SRC_DIR}/app"
-      - export TAG="${CODEBUILD_RESOLVED_SOURCE_VERSION}$(echo "${ENV}" | tail -c 4)"
+      - export TAG="${echo $CODEBUILD_RESOLVED_SOURCE_VERSION | tail -c 4}-"${ENV}"
       - echo "Building version ${TAG}"
       #- IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       #- export TAG="${CODEBUILD_RESOLVED_SOURCE_VERSION}-${ENV}"
