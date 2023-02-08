@@ -1,15 +1,10 @@
-terraform {
-  required_version = ">= 0.12.2"
-
-  backend "s3" {
+ terraform {
+ backend "s3" {
     region         = "eu-west-3"
-    bucket         = "moq-test-buket-state"
-    key            = "terraform.tfstate"
-    dynamodb_table = "losho"
-    profile        = ""
-    role_arn       = ""
+    bucket         = "final-demo-test-app"
+    key            = "terraform.state"
+    dynamodb_table = "final-demo-test-app-lock"
     encrypt        = "true"
   }
 }
-
 
