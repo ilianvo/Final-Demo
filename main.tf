@@ -15,9 +15,9 @@ module "remote" {
   attributes = ["state"]
 
   dynamodb_table_name = "losho"
-  terraform_backend_config_file_path = "."
+  terraform_backend_config_file_path = ""
   terraform_backend_config_file_name = "backend.tf"
-  force_destroy                      = false
+  force_destroy                      = true
 }
 
 module "ecr" {
@@ -27,7 +27,7 @@ module "ecr" {
 module "init-build" {
   source = "./modules/init-build"
   ecr_name = module.ecr.ecr_name
-  env                 = var.env
+  env                = var.env
   app                 = var.app
   working_dir         = "${path.root}/app"
   image_tag           = var.image_tag
@@ -53,6 +53,8 @@ module "cluster" {
 
 module "codebuild" {
   source = "./modules/codebuild"
+  environment        = var.environment
+  app_name           = var.app_name
   vpc_id = module.cluster.vpc_id
    github_oauth_token = var.github_oauth_token 
   subnets = module.cluster.subnets

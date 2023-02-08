@@ -35,12 +35,9 @@ resource "aws_cloudwatch_log_group" "log-group" {
           "containerPort": 5000,
           "hostPort": 5000
         }
-    ],
-      "cpu": 256,
-      "memory": 512,
-      "networkMode": "awsvpc"
-    }
-  ]
+    ]
+  }
+]
   DEFINITION 
 
   requires_compatibilities = ["FARGATE"]
@@ -49,10 +46,7 @@ resource "aws_cloudwatch_log_group" "log-group" {
   cpu                      = "256"
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   task_role_arn            = aws_iam_role.ecs_task_role.arn
-  tags = {
-    Name        = "VERSION"
-    Environment = var.image_tag
-  }
+  
 }
 
 data "aws_ecs_task_definition" "main" {

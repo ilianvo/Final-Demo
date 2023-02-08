@@ -5,9 +5,17 @@ variable "github_oauth_token" {
   
 }
 
+variable "environment" {
+  
+}
+
+variable "app_name" {
+  type        = string
+}
+
 locals {
-  codebuild_project_name = "This-Build"
-  description = "Codebuild-for-Me"
+  codebuild_project_name = "${var.app_name}-${var.environment}"
+  description = "Codebuild for ${var.app_name} environment ${var.environment}"
 }
 
 variable "repo_url" {
