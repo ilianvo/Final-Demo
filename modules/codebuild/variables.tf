@@ -6,11 +6,11 @@ variable "github_oauth_token" {
 }
 
 variable "environment" {
-  
+  type  = string
 }
 
 variable "app_name" {
-  type        = string
+  type  = string
 }
 
 locals {

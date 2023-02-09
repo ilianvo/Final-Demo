@@ -1,9 +1,9 @@
 TAG ?= latest
 REGISTRY_ID ?= 335590679329
 REPOSITORY_REGION ?= eu-west-3
-APP_NAME ?= flaskapp
-ENV_NAME ?= dev
-REPO_NAME = $(REGISTRY_ID).dkr.ecr.$(REPOSITORY_REGION).amazonaws.com/my-image
+APP_NAME ?= pipeapp
+ENV_NAME ?= test
+REPO_NAME = $(REGISTRY_ID).dkr.ecr.$(REPOSITORY_REGION).amazonaws.com/${APP_NAME}-${ENV_NAME}
 
 .PHONY: build
 build:

@@ -3,8 +3,8 @@ resource "aws_ecs_cluster" "main" {
 }
 
 resource "aws_cloudwatch_log_group" "log-group" {
-  name = "${var.app_name}-${var.environment}-logs"
-
+  name = "${var.app_name}-${var.environment}-container-logs"
+ retention_in_days = 30
   tags = {
     Application = var.app_name
     Environment = var.environment
@@ -99,7 +99,7 @@ resource "aws_security_group" "service_security_group" {
   }
 
   tags = {
-    Name        = "${var.app_name}-service-sg"
+    Name  = "${var.app_name}-service-sg"
     Environment = var.environment
   }
 }

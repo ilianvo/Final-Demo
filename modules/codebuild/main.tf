@@ -2,7 +2,6 @@ data "aws_region" "current" {}
 
 resource "aws_security_group" "codebuild_sg" {
   name        = "allow_vpc_connectivity"
-  description = "Allow Codebuild connectivity to all the resources within our VPC"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -63,7 +62,15 @@ resource "aws_codebuild_project" "project" {
     git_clone_depth = 1
     report_build_status = "true"
   }
+ source_version = var.branch_pattern
 
+  logs_config {
+    cloudwatch_logs {
+      group_name  = "codebuild-test-log-group"
+      stream_name = "codebuild-test-log-stream"
+      status      = "ENABLED"
+    }
+  }
   vpc_config {
     vpc_id = var.vpc_id
 

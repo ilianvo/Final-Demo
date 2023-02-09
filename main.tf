@@ -28,22 +28,25 @@ module "remote-state" {
   dynamodb_table_name = "final-demo-test-app-lock"
   terraform_backend_config_file_path = "."
   terraform_backend_config_file_name = "backend.tf"
-  force_destroy                      = false
+  force_destroy = false
   terraform_state_file = "terraform.state"
 }
 
 
 module "ecr" {
   source = "./modules/ecr"
-  
+  environment = var.environment
+  app_name    = var.app_name
+  force_delete = false
 }
 module "init-build" {
   source = "./modules/init-build"
-  ecr_name = module.ecr.ecr_name
-  env                = var.env
-  app                 = var.app
-  working_dir         = "${path.root}/app"
-  image_tag           = var.image_tag
+  region = var.region
+  ecr_repository_url = module.ecr.ecr_repository_url
+  environment = var.environment
+  app_name = var.app_name
+  working_dir = "${path.root}/app"
+  image_tag = var.image_tag
   depends_on = [
     module.ecr,
   ]
@@ -57,7 +60,7 @@ module "cluster" {
   private_subnet_cidr = var.private_subnet_cidr
   public_subnet_cidr = var.public_subnet_cidr
   cidr = var.cidr
-  ecr_name = module.ecr.ecr_name
+  ecr_repository_url = module.ecr.ecr_repository_url
   image_tag   = var.image_tag
   depends_on = [
     module.ecr, module.init-build
@@ -66,8 +69,8 @@ module "cluster" {
 
 module "codebuild" {
   source = "./modules/codebuild"
-  environment        = var.environment
-  app_name           = var.app_name
+  environment = var.environment
+  app_name = var.app_name
   vpc_id = module.cluster.vpc_id
    github_oauth_token = var.github_oauth_token 
   subnets = module.cluster.subnets

@@ -1,8 +1,6 @@
-variable "ecr_name" {
+variable "ecr_repository_url" {
   
 }
-
-
 
 variable "image_tag" {
   type = string
@@ -12,10 +10,13 @@ variable "working_dir" {
   type = string
 }
 
-variable "app" {
+variable "app_name" {
   type = string
 }
 
-variable "env" {
+variable "environment" {
   type = string
+}
+variable "region" {
+  
 }

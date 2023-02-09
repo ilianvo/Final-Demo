@@ -4,8 +4,8 @@ env:
   variables:
     CI: "true"
     REPOSITORY_REGION: "eu-west-3"
-    ENV: "Test"
-    APP_NAME: "Demo-Cluster"
+    ENV: "test"
+    APP_NAME: "pipeapp"
     TERRAFORM_VERSION: "0.14.7"
 
     

@@ -7,7 +7,7 @@ variable "app_name" {
 }
 
 variable "environment" {
-  type        = string
+  type = string
 }
 
 variable "cidr" {
@@ -21,7 +21,7 @@ variable "public_subnet_cidr" {
   type = list(string)
 }
 
-variable "ecr_name" {
+variable "ecr_repository_url" {
   
 }
 locals {
@@ -34,7 +34,7 @@ variable "image_tag" {
 }
 
 locals {
-  image = format("%s:%s", var.ecr_name, var.image_tag)
+  image = format("%s:%s", var.ecr_repository_url, var.image_tag)
 }
 
 variable "ecs_task_execution_role_name" {

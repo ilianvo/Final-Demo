@@ -6,9 +6,9 @@ cidr = "10.0.0.0/16"
 
 region = "eu-west-3"
 
-environment = "Test"
+environment = "test"
 
-app_name = "Demo-Cluster"
+app_name = "pipeapp"
 
 env            = "main"
 app            = "app"
