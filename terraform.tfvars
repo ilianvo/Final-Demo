@@ -10,7 +10,4 @@ environment = "test"
 
 app_name = "pipeapp"
 
-env            = "main"
-app            = "app"
-
 image_tag      = "0.0.1"

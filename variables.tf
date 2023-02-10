@@ -33,14 +33,6 @@ variable "image_tag" {
 }
 
 
-
-variable "app" {
-  type = string
-}
-
-variable "env" {
-  type = string
-}
 variable "working_dir" {
   type        = string
   default     = ""

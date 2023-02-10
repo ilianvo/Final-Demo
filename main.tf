@@ -8,25 +8,12 @@ terraform {
   }
 }
 
-/*module "remote" {
-  source = "./modules/remote"
-  namespace  = "moq"
-  stage      = "test"
-  name       = "buket"
-  attributes = ["state"]
-
-  dynamodb_table_name = "losho"
-  terraform_backend_config_file_path = ""
-  terraform_backend_config_file_name = "backend.tf"
-  force_destroy                      = true
-}*/
-
 module "remote-state" {
   source = "./modules/remote-state"
   
   s3_bucket_name = "final-demo-test-app"
   dynamodb_table_name = "final-demo-test-app-lock"
-  terraform_backend_config_file_path = ""
+  terraform_backend_config_file_path = "."
   terraform_backend_config_file_name = "backend.tf"
   force_destroy = true
   terraform_state_file = "terraform.state"
