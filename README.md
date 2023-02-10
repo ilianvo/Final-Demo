@@ -28,18 +28,18 @@ git push
 See if the webhook is triggered and the change is implemented
 
 ## Destroy
-1.In main.tf change the value of ```terraform_backend_config_file_path ``` to this:
+1. In main.tf change the value of ```terraform_backend_config_file_path ``` to this:
 ```
  module "remote-state" {
    terraform_backend_config_file_path = ""
    force_destroy                      = true
  }
 ```
-2.```terraform apply -target module.remote-state -auto-approve```. This implements the above modifications by deleting the ```backend.tf``` file and enabling deletion of the S3 state bucket.
+2. ```terraform apply -target module.remote-state -auto-approve```. This implements the above modifications by deleting the ```backend.tf``` file and enabling deletion of the S3 state bucket.
 
-3.```terraform init -force-copy```. Terraform detects that you want to move your Terraform state from the S3 backend to local files, and it does so per ```-auto-approve```. Now the state is once again stored locally and the S3 state bucket can be safely deleted.
+3. ```terraform init -force-copy```. Terraform detects that you want to move your Terraform state from the S3 backend to local files, and it does so per ```-auto-approve```. Now the state is once again stored locally and the S3 state bucket can be safely deleted.
 
-4. Set force_delete value in ```module.ecr``` to ```true```
+4. In main.tf set force_delete value for ```module.ecr``` to ```true```
 
 5. ```terraform apply -target module.ecr -auto-approve```
 
