@@ -13,9 +13,9 @@ module "remote-state" {
   
   s3_bucket_name = "final-demo-test-app"
   dynamodb_table_name = "final-demo-test-app-lock"
-  terraform_backend_config_file_path = "."
+  terraform_backend_config_file_path = ""
   terraform_backend_config_file_name = "backend.tf"
-  force_destroy = false
+  force_destroy = true
   terraform_state_file = "terraform.state"
 }
 

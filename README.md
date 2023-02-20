@@ -46,3 +46,6 @@ See if the webhook is triggered and the change is implemented
 6. ```terraform destroy -auto-approve```
 
 7. Done
+
+## Schema
+![alt text](https://i.ibb.co/tKXNyH0/firefox-I6-U5q-Prubt.png)
