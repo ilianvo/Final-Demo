@@ -29,12 +29,11 @@ phases:
       - cd "${CODEBUILD_SRC_DIR}/app"
       - export TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 4)-$ENV"
       - echo "Building version ${TAG}"
-      - echo "Building version ${TAG}"
       - make build
 
       - cd ${CODEBUILD_SRC_DIR}
       - terraform init 
-      - terraform plan -target=module.cluster --var-file="terraform.tfvars" -var="image_tag=${TAG}" -no-color -input=false -out plan.out
+      - terraform plan -target=module.cluster  -var="image_tag=${TAG}" -no-color -input=false -out plan.out
       - terraform apply -auto-approve -no-color -input=false plan.out
 
   post_build:

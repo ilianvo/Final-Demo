@@ -11,11 +11,11 @@ terraform {
 module "remote-state" {
   source = "./modules/remote-state"
   
-  s3_bucket_name = "final-demo-test-app"
-  dynamodb_table_name = "final-demo-test-app-lock"
-  terraform_backend_config_file_path = ""
+  s3_bucket_name = "final-demo-test-pipeapp"
+  dynamodb_table_name = "final-demo-test-pipeapp-lock"
+  terraform_backend_config_file_path = "."
   terraform_backend_config_file_name = "backend.tf"
-  force_destroy = true
+  force_destroy = false
   terraform_state_file = "terraform.state"
 }
 
@@ -24,7 +24,7 @@ module "ecr" {
   source = "./modules/ecr"
   environment = var.environment
   app_name    = var.app_name
-  force_delete = true
+  force_delete = false
 }
 module "init-build" {
   source = "./modules/init-build"
@@ -59,7 +59,7 @@ module "codebuild" {
   environment = var.environment
   app_name = var.app_name
   vpc_id = module.cluster.vpc_id
-   github_oauth_token = var.github_oauth_token 
+  github_oauth_token = var.github_oauth_token 
   subnets = module.cluster.subnets
   depends_on = [
     module.cluster, module.init-build
