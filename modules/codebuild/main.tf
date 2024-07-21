@@ -19,17 +19,23 @@ resource "aws_security_group" "codebuild_sg" {
   }
 }
 
-resource "null_resource" "import_source_credentials" {
+resource "aws_codebuild_source_credential" "github" {
+  auth_type = "PERSONAL_ACCESS_TOKEN"
+  server_type = "GITHUB"
+  token = var.github_oauth_token
+}
+
+#resource "null_resource" "import_source_credentials" {
 
   
-  triggers = {
-    github_oauth_token = var.github_oauth_token
-  }
+  #triggers = {
+   # github_oauth_token = var.github_oauth_token
+ # }
 
-  provisioner "local-exec" {
-    command = "${file("./modules/codebuild/cred_script.sh")}"
-  }
-}
+ # provisioner "local-exec" {
+   # command = "${file("./modules/codebuild/cred_script.sh")}"
+ # }
+#}
 
 # CodeBuild Project
 resource "aws_codebuild_project" "project" {
