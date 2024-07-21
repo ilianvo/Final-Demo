@@ -21,7 +21,7 @@ terraform init -force-copy
 ## Change
 Make change in your application then: 
 ```
-git add.
+git add .
 git commit -m "your comment"
 git push
 ```
