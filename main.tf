@@ -15,7 +15,7 @@ module "remote-state" {
   dynamodb_table_name = "final-demo-test-pipeapp-lock"
   terraform_backend_config_file_path = "."
   terraform_backend_config_file_name = "backend.tf"
-  force_destroy = true
+  force_destroy = false
   terraform_state_file = "terraform.state"
 }
 
@@ -24,7 +24,7 @@ module "ecr" {
   source = "./modules/ecr"
   environment = var.environment
   app_name    = var.app_name
-  force_delete = true
+  force_delete = false
 }
 module "init-build" {
   source = "./modules/init-build"
